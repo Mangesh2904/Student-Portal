@@ -5,7 +5,7 @@ const Signup = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '', role: 'student' });
 
   const handleChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -14,22 +14,37 @@ const Signup = () => {
       await axios.post('http://localhost:5000/api/auth/signup', formData);
       alert("Signup successful. You can now login.");
     } catch (err) {
-      alert(err.response.data.msg || "Signup failed");
+      alert(err.response?.data?.msg || "Signup failed");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" name="name" placeholder="Name" onChange={handleChange} required />
-      <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-      <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-      <select name="role" onChange={handleChange}>
-        <option value="student">Student</option>
-        <option value="faculty">Faculty</option>
-        <option value="admin">Admin</option>
-      </select>
-      <button type="submit">Signup</button>
-    </form>
+    <div className="container mt-5">
+      <h2>Signup</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label>Name</label>
+          <input className="form-control" type="text" name="name" value={formData.name} onChange={handleChange} required />
+        </div>
+        <div className="mb-3">
+          <label>Email</label>
+          <input className="form-control" type="email" name="email" value={formData.email} onChange={handleChange} required />
+        </div>
+        <div className="mb-3">
+          <label>Password</label>
+          <input className="form-control" type="password" name="password" value={formData.password} onChange={handleChange} required />
+        </div>
+        <div className="mb-3">
+          <label>Role</label>
+          <select className="form-control" name="role" value={formData.role} onChange={handleChange}>
+            <option value="student">Student</option>
+            <option value="faculty">Faculty</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <button className="btn btn-success" type="submit">Signup</button>
+      </form>
+    </div>
   );
 };
 

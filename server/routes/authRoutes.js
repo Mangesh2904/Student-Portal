@@ -13,5 +13,4 @@ router.get('/dashboard', authMiddleware, (req, res) => {
   });
 });
 
-
 module.exports = router;
